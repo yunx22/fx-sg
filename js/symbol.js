@@ -222,8 +222,18 @@
       return image;
     })();
 
+    let startTime;
     // render that thing!
-    function render() {
+    function render(reqTime) {
+      if (!startTime) { 
+          startTime = reqTime; 
+      }
+      if (reqTime - startTime >= 8000) {
+          // clear canvas
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          console.log( 'render symbol ran for %sms', reqTime - startTime )
+          return;
+      }
       // next animation frame
       requestAnimationFrame(render);
 

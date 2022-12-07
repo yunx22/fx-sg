@@ -65,13 +65,22 @@ Label.prototype.draw = function (i) {
     );
 };
 
-function render() {
+let startTime;
+
+function render(time) {
     ctx.clearRect(0, 0, ww, wh);
+    if (!startTime) { 
+        startTime = time; 
+    }
+    if (time - startTime >= 8000) {
+        console.log( 'render names ran for %sms', time - startTime )
+        return;
+    }
     for (var i = 0; i < 100; i++) {
         labels[i].update(i);
         labels[i].draw(i);
     }
-    requestAnimationFrame(render);
+    count = requestAnimationFrame(render);
 }
 
 init();
